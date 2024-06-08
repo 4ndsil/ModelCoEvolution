@@ -1,0 +1,4 @@
+C:\Users\andre\OneDrive\Dokument\Skolmaterial\24vt\Uppsats\Repos\coreLang\src\main\mal\Networking.mal
+C:\Users\andre\OneDrive\Dokument\Skolmaterial\24vt\Uppsats\Repos\coreLang\src\main\mal\Application.mal
+C:\Users\andre\OneDrive\Dokument\Skolmaterial\24vt\Uppsats\Repos\coreLang\src\main\mal\RoutingFirewall.mal
+C:\Users\andre\OneDrive\Dokument\Skolmaterial\24vt\Uppsats\Repos\coreLang\src\main\mal\ConnectionRule.mal
