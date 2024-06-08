@@ -1,2 +1,2 @@
 # ModelCoEvolution
-Theis project - developing an automated model coevolution
+Thesis project - developing an automated model coevolution

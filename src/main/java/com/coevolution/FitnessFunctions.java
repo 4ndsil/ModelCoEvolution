@@ -56,13 +56,13 @@ public class FitnessFunctions {
     private int intersection(Model initalModel, Model revisedModel) {
         int intersection = 0;
 
-        Set<String> mAssets = new HashSet<>();
+        Set<String> initialAssets = new HashSet<>();
         for (Asset mAsset : initalModel.getAssets()) {
-            mAssets.add(mAsset.assetClassName);
+            initialAssets.add(mAsset.assetClassName);
         }
     
         for (Asset asset : revisedModel.getAssets()) {        
-            if (!mAssets.contains(asset.assetClassName)) {
+            if (initialAssets.contains(asset.assetClassName)) {
                 intersection++;
             }
         }

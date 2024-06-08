@@ -18,6 +18,9 @@ public class CandidateSolution {
     private double minInconsistency;
     private double maxInconsistency;
     private double normalizedFitness;
+
+    public int dominationCount;
+    public List<CandidateSolution> dominatedSolutions;
     public final FitnessFunctions fitnessFunctions;
 
     public CandidateSolution() {

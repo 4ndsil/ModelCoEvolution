@@ -12,13 +12,13 @@ public class PopulationSelector {
     private Random random;
     private Integer POPULATION_SIZE;
     private List<EditOperation<Class>> edits;
-    private static final double MUTATION_PROBABILITY = 0.7;
-    private static final double CROSSOVER_PROBABILITY = 0.8;
+    private static final double MUTATION_PROBABILITY = 0.9;
+    private static final double CROSSOVER_PROBABILITY = 0.9;
 
     public PopulationSelector(List<EditOperation<Class>> edits) {
         this.random = new Random();
         this.edits = edits;
-        this.POPULATION_SIZE = 100;
+        this.POPULATION_SIZE = 500;
     }
 
     public List<CandidateSolution> initializePopulation(Model metamodel, Model model) {        
@@ -48,8 +48,8 @@ public class PopulationSelector {
 
             crossover(parent1, parent2);
 
-            mutateSolution(candidateSolutions, metamodel, model, parent1);
-            mutateSolution(candidateSolutions,  metamodel, model, parent2);
+            mutateSolution(parent1);
+            mutateSolution(parent2);
             offspring.add(parent1);
             offspring.add(parent2);
         }
@@ -105,11 +105,11 @@ public class PopulationSelector {
         }
     }
 
-    public void mutateSolution(List<CandidateSolution> candidateSolutions, Model metamodel, Model model, CandidateSolution solution) {
-        mutate(candidateSolutions, metamodel, model, solution);
+    public void mutateSolution(CandidateSolution solution) {
+        mutate(solution);
     }
 
-    private void mutate(List<CandidateSolution> candidateSolutions, Model metamodel, Model model, CandidateSolution solution) {
+    private void mutate(CandidateSolution solution) {
         if (random.nextDouble() < MUTATION_PROBABILITY) {
             int numMutations = random.nextInt(2) + 1; // select 1 or 2 mutations
 
