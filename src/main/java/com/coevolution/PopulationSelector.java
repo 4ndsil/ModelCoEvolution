@@ -1,6 +1,7 @@
 package com.coevolution;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -12,27 +13,28 @@ public class PopulationSelector {
     private Random random;
     private Integer POPULATION_SIZE;
     private List<EditOperation<Class>> edits;
-    private static final double MUTATION_PROBABILITY = 0.9;
-    private static final double CROSSOVER_PROBABILITY = 0.9;
+    private static final double MUTATION_PROBABILITY = 0.05;
+    private static final double CROSSOVER_PROBABILITY = 0.2;
 
     public PopulationSelector(List<EditOperation<Class>> edits) {
         this.random = new Random();
         this.edits = edits;
-        this.POPULATION_SIZE = 500;
+        this.POPULATION_SIZE = 250;
     }
 
     public List<CandidateSolution> initializePopulation(Model metamodel, Model model) {        
 
         List<CandidateSolution> candidateSolutions = new ArrayList<>();  
 
-        while (candidateSolutions.size() < POPULATION_SIZE) {
-            CandidateSolution solution = new CandidateSolution();
-            for (int i = 0; i < (random.nextInt(30) + 8); i++) {
+        while (candidateSolutions.size() < POPULATION_SIZE /2) {
+            CandidateSolution solution = new CandidateSolution(metamodel, model);           
+            int numOperations = model.getAssets().size() + 1;
+            for (int i = 0; i < numOperations; i++) {
                 int rand = random.nextInt(edits.size());
                 EditOperation op = edits.get(rand);
                 solution.addEditOperation(op);
             }
-            solution.setFitnessValues(metamodel, model);
+            solution.setFitnessValues();
 
             candidateSolutions.add(solution);
         }
@@ -47,11 +49,12 @@ public class PopulationSelector {
             CandidateSolution parent2 = selectParent(candidateSolutions);
 
             crossover(parent1, parent2);
-
             mutateSolution(parent1);
             mutateSolution(parent2);
             offspring.add(parent1);
-            offspring.add(parent2);
+            if (offspring.size() < POPULATION_SIZE / 2){
+                offspring.add(parent2);
+            }
         }
         return offspring;
     }
@@ -72,13 +75,27 @@ public class PopulationSelector {
 
         CandidateSolution bestSolution = null;
         for (CandidateSolution participant : tournamentParticipants) {
-            if (bestSolution == null || participant
-                    .getNormalizedFitness() > bestSolution.getNormalizedFitness()) {
+            if (bestSolution == null || dominates(participant, bestSolution)) {
                 bestSolution = participant;
             }
         }
 
         return bestSolution;
+    }
+
+    private boolean dominates(CandidateSolution q, CandidateSolution p) {
+        boolean betterInAtLeastOneObjective = false;
+
+        for (int i = 0; i < 3; i++) {
+            if (q.getFitnessValue(i) > p.getFitnessValue(i)) {
+                return false;
+            }
+            if (q.getFitnessValue(i) < p.getFitnessValue(i)) {
+                betterInAtLeastOneObjective = true;
+            }
+        }
+
+        return betterInAtLeastOneObjective;
     }
 
     public void crossover(CandidateSolution parent1, CandidateSolution parent2) {
@@ -111,18 +128,15 @@ public class PopulationSelector {
 
     private void mutate(CandidateSolution solution) {
         if (random.nextDouble() < MUTATION_PROBABILITY) {
-            int numMutations = random.nextInt(2) + 1; // select 1 or 2 mutations
+            int numMutations = random.nextInt(2) + 1;
 
             for (int i = 0; i < numMutations; i++) {
-                int indexToMutate = random.nextInt(solution.size());
+                int indexToMutate = random.nextInt(solution.getEditOperations().size());
 
                 int mutationType = random.nextInt(2);
                 if (mutationType == 0) {
-                    int newIndex = random.nextInt(solution.size());
-                    EditOperation temp = solution.getEditOperations().get(indexToMutate);
-                    solution.getEditOperations().set(indexToMutate,
-                            solution.getEditOperations().get(newIndex));
-                    solution.getEditOperations().set(newIndex, temp);
+                    int newIndex = random.nextInt(solution.getEditOperations().size());
+                    Collections.swap(solution.getEditOperations(), indexToMutate, newIndex);
                 } else {
                     int randomIndex = random.nextInt(edits.size());
                     EditOperation newOperation = edits.get(randomIndex);
@@ -131,42 +145,23 @@ public class PopulationSelector {
                     }
                 }
             }
-            List<EditOperation> operations = solution.getEditOperations();
-            Set<EditOperation> seenOperations = new HashSet<>();
 
-            Iterator<EditOperation> iterator = operations.iterator();
-            while (iterator.hasNext()) {
-                EditOperation operation = iterator.next();
-                if (seenOperations.contains(operation)) {
-                    iterator.remove();
-                } else {
-                    seenOperations.add(operation);
-                }
-            }            
+            removeDuplicateOperations(solution);
         }
     }
 
-    public double findMinNvc(List<CandidateSolution> solutions) {
-        return solutions.stream().mapToDouble(CandidateSolution::getNvc).min().orElse(Double.MAX_VALUE);
-    }
+    private void removeDuplicateOperations(CandidateSolution solution) {
+        List<EditOperation> operations = solution.getEditOperations();
+        Set<EditOperation> seenOperations = new HashSet<>();
 
-    public double findMinNbOp(List<CandidateSolution> solutions) {
-        return solutions.stream().mapToDouble(CandidateSolution::getNbOp).min().orElse(Double.MAX_VALUE);
-    }
-
-    public double findMinInconsistency(List<CandidateSolution> solutions) {
-        return solutions.stream().mapToDouble(CandidateSolution::getInconsistency).min().orElse(Double.MAX_VALUE);
-    }
-
-    public double findMaxNvc(List<CandidateSolution> solutions) {
-        return solutions.stream().mapToDouble(CandidateSolution::getNvc).max().orElse(0.0);
-    }
-
-    public double findMaxNbOp(List<CandidateSolution> solutions) {
-        return solutions.stream().mapToDouble(CandidateSolution::getNbOp).max().orElse(0.0);
-    }
-
-    public double findMaxInconsistency(List<CandidateSolution> solutions) {
-        return solutions.stream().mapToDouble(CandidateSolution::getInconsistency).max().orElse(0.0);
+        Iterator<EditOperation> iterator = operations.iterator();
+        while (iterator.hasNext()) {
+            EditOperation operation = iterator.next();
+            if (seenOperations.contains(operation)) {
+                iterator.remove();
+            } else {
+                seenOperations.add(operation);
+            }
+        }
     }
 }

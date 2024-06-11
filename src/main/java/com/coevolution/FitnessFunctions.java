@@ -7,20 +7,22 @@ import com.coevolution.elements.Asset;
 
 public class FitnessFunctions {
 
-    //Constraint constraint;
+    public double PENALTY_FACTOR = 2;
+    private final Set<String> mmAssets = new HashSet<>();
+    private final Set<String> initialAssets = new HashSet<>();
 
-    public FitnessFunctions() {
-       // this.constraint = new Constraint();
-
+    public FitnessFunctions(Model metamodel, Model model) {        
+        for (Asset metamodelAsset : metamodel.getAssets()) {
+            mmAssets.add(metamodelAsset.getClass().getCanonicalName());
+        }
+        
+        for (Asset mAsset : model.getAssets()) {
+            initialAssets.add(mAsset.assetClassName);
+        }
     }
 
     // fitness i - number of non-conformities
  public double nvc(Model metamodel, Model model) {
-    Set<String> mmAssets = new HashSet<>();
-    for (Asset metamodelAsset : metamodel.getAssets()) {
-        mmAssets.add(metamodelAsset.getClass().getCanonicalName());
-    }
-
     double nonConformities = 0.0;
     
     for (Asset modelAsset : model.getAssets()) {        
@@ -30,16 +32,17 @@ public class FitnessFunctions {
     }
     return nonConformities;
 }
-
+/*
     // fitness ii - number of operations
     public double nbOp(CandidateSolution solution) {
-        return solution.getEditOperations().size();
+        return solution.getEditOperations().size() * PENALTY_FACTOR;
     }
-
+ */
     // fitness iii - semantic inconsistency
-    public double inconsistency(Model initalModel, Model revisedModel) {
-        double dotProduct = intersection(initalModel, revisedModel); // dot product
-        double magnitudeInitial = Math.sqrt(getModelSize(initalModel));
+    public double inconsistency(Model initialModel, Model revisedModel) {
+   
+        double dotProduct = intersection(revisedModel); // dot product
+        double magnitudeInitial = Math.sqrt(getModelSize(initialModel));
         double magnitudeRevised = Math.sqrt(getModelSize(revisedModel));
         double cosineSimilarity = dotProduct / (magnitudeInitial * magnitudeRevised);
 
@@ -47,19 +50,15 @@ public class FitnessFunctions {
         double inconsistency = 1 - (cosineSimilarity / maxSimilarity);
 
         return inconsistency;
+        
     }
 
     private double getModelSize(Model model) {
         return model.getAssets().size();
     }
 
-    private int intersection(Model initalModel, Model revisedModel) {
+    private int intersection(Model revisedModel) {
         int intersection = 0;
-
-        Set<String> initialAssets = new HashSet<>();
-        for (Asset mAsset : initalModel.getAssets()) {
-            initialAssets.add(mAsset.assetClassName);
-        }
     
         for (Asset asset : revisedModel.getAssets()) {        
             if (initialAssets.contains(asset.assetClassName)) {

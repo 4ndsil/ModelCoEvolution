@@ -145,16 +145,16 @@ public class BinarySearchTree {
         return minNode;
     }
 
-    public void traverseFitness(TreeNode root, Model metamodel, Model model) {
-        traverseAndComputeFitness(root, metamodel, model);
+    public void traverseFitness(TreeNode root) {
+        traverseAndComputeFitness(root);
     }
 
-    private void traverseAndComputeFitness(TreeNode root, Model metamodel, Model model) {
+    private void traverseAndComputeFitness(TreeNode root) {
         if (root != null) {
-            root.candidateSolution.setFitnessValues(metamodel, model);
+            root.candidateSolution.setFitnessValues();
 
-            traverseAndComputeFitness(root.left, metamodel, model);
-            traverseAndComputeFitness(root.right, metamodel, model);
+            traverseAndComputeFitness(root.left);
+            traverseAndComputeFitness(root.right);
         }
     }
 
@@ -164,8 +164,8 @@ public class BinarySearchTree {
 
     private void traverseAndComputeFitnessNorm(TreeNode root) {
         if (root != null) {
-            root.candidateSolution.setNormalizedFitness();
-            root.val = root.candidateSolution.getNormalizedFitness();
+            root.candidateSolution.getTotalFitness();
+            root.val = root.candidateSolution.getTotalFitness();
 
             traverseAndComputeFitnessNorm(root.left);
             traverseAndComputeFitnessNorm(root.right);
@@ -176,7 +176,7 @@ public class BinarySearchTree {
         if (node == null) {
             return 0;
         }
-        return node.candidateSolution.getNormalizedFitness() +
+        return node.candidateSolution.getTotalFitness() +
                 computeTotalNormFitness(node.left, metamodel, model) +
                 computeTotalNormFitness(node.right, metamodel, model);
     }
@@ -345,96 +345,6 @@ public class BinarySearchTree {
             node = node.left;
         }
         return node;
-    }
-
-    // normalization of fitness
-    public double traverseAndSetMinNvc(TreeNode root) {
-        if (root == null) {
-            return Double.MAX_VALUE;
-        }
-
-        double minNvc = root.candidateSolution.getNvc();
-
-        double leftMin = traverseAndSetMinNvc(root.left);
-        double rightMin = traverseAndSetMinNvc(root.right);
-        minNvc = Math.min(minNvc, Math.min(leftMin, rightMin));
-        root.candidateSolution.setMinNvc(minNvc);
-        return minNvc;
-    }
-
-    public double traverseAndSetMinNbOp(TreeNode root) {
-        if (root == null) {
-            return Double.MAX_VALUE;
-        }
-
-        double minNbOp = root.candidateSolution.getNbOp();
-
-        double leftMin = traverseAndSetMinNbOp(root.left);
-        double rightMin = traverseAndSetMinNbOp(root.right);
-
-        minNbOp = Math.min(minNbOp, Math.min(leftMin, rightMin));
-        root.candidateSolution.setMinNbOp(minNbOp);
-        return minNbOp;
-    }
-
-    public double traverseAndSetMinInconsistency(TreeNode root) {
-        if (root == null) {
-            return Double.MAX_VALUE;
-        }
-
-        double minInconsistency = root.candidateSolution.getInconsistency();
-
-        double leftMin = traverseAndSetMinInconsistency(root.left);
-        double rightMin = traverseAndSetMinInconsistency(root.right);
-
-        minInconsistency = Math.min(minInconsistency, Math.min(leftMin, rightMin));
-        root.candidateSolution.setMinInconsistency(minInconsistency);
-        return minInconsistency;
-    }
-
-    public double traverseAndSetMaxNvc(TreeNode root) {
-        if (root == null) {
-            return 0.0;
-        }
-
-        double maxNvc = root.candidateSolution.getNvc();
-
-        double leftMax = traverseAndSetMaxNvc(root.left);
-        double rightMax = traverseAndSetMaxNvc(root.right);
-
-        maxNvc = Math.max(maxNvc, Math.max(leftMax, rightMax));
-        root.candidateSolution.setMaxNvc(maxNvc);
-        return maxNvc;
-    }
-
-    public double traverseAndSetMaxNbOp(TreeNode root) {
-        if (root == null) {
-            return 0.0;
-        }
-
-        double maxNbOp = root.candidateSolution.getNbOp();
-
-        double leftMax = traverseAndSetMaxNbOp(root.left);
-        double rightMax = traverseAndSetMaxNbOp(root.right);
-
-        maxNbOp = Math.max(maxNbOp, Math.max(leftMax, rightMax));
-        root.candidateSolution.setMaxNbOp(maxNbOp);
-        return maxNbOp;
-    }
-
-    public double traverseAndSetMaxInconsistency(TreeNode root) {
-        if (root == null) {
-            return 0.0;
-        }
-
-        double maxInconsistency = root.candidateSolution.getInconsistency();
-
-        double leftMax = traverseAndSetMaxInconsistency(root.left);
-        double rightMax = traverseAndSetMaxInconsistency(root.right);
-
-        maxInconsistency = Math.max(maxInconsistency, Math.max(leftMax, rightMax));
-        root.candidateSolution.setMaxInconsistency(maxInconsistency);
-        return maxInconsistency;
     }
 
     public List<TreeNode> inOrderTraversal() {

@@ -20,7 +20,7 @@ public class Main {
         Model model_1 = models.model_1();
         Model metamodel_1 = models.metamodel_1();
 
-        FitnessFunctions functions = new FitnessFunctions();
+        FitnessFunctions functions = new FitnessFunctions(metamodel_1, model_1);
         // baseline sequence
         Edits edits = new Edits();
 
@@ -38,7 +38,7 @@ public class Main {
                 myWriter.write("\nThat took " + (endTime1 - startTime) + " miliseconds");
                 myWriter.close();
                 myWriter.write("\nModel 5. Run " + i + "\n");
-                CandidateSolution solution =  new CandidateSolution();
+                CandidateSolution solution =  new CandidateSolution(metamodel_1, metamodel_1);
                 for (EditOperation edit : solution.getEditOperations()) {
                     if (edit instanceof CreateOperation) {
                         CreateOperation createOp = (CreateOperation) edit;

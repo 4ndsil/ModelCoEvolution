@@ -22,7 +22,7 @@ public class SolutionProcessor {
         List<Asset> assets = model.getAssets();
         Model copyModel = new Model();
         for (Asset a : assets){
-            try {             
+            try {        
                 Class<? extends Asset> assetClass = a.getClass();
                 Constructor<?> cons = assetClass.getConstructor(String.class);
                 Object object = cons.newInstance(a.name);
