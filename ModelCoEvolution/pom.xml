@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.coevolution</groupId>
+    <artifactId>modelmigration</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.2.0</version>
+    <scope>test</scope>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.7.0-M1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.uma.jmetal</groupId>
+        <artifactId>jmetal-core</artifactId>
+        <version>5.11</version>
+    </dependency>
+    <dependency>
+        <groupId>org.uma.jmetal</groupId>
+        <artifactId>jmetal-algorithm</artifactId>
+        <version>5.11</version>
+    </dependency>
+    <dependency>
+        <groupId>org.uma.jmetal</groupId>
+        <artifactId>jmetal-problem</artifactId>
+        <version>5.11</version>
+    </dependency>
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20090211</version>
+    </dependency>
+    <dependency>
+        <groupId>org.eclipse.emf</groupId>
+        <artifactId>org.eclipse.emf.ecore</artifactId>
+        <version>2.21.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openehealth.ipf.eclipse.ocl</groupId>
+        <artifactId>ipf-eclipse-ocl-ecore</artifactId>
+        <version>3.1.1.v20110823-1646</version>
+    </dependency>
+    <dependency>
+        <groupId>lpg.runtime</groupId>
+        <artifactId>java</artifactId>
+        <version>2.0.17-v201004271640</version>
+    </dependency>
+     <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.12.3</version>
+    </dependency>
+    </dependencies>
+</project>

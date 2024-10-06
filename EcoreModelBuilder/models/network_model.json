@@ -1,0 +1,84 @@
+{
+    "metadata": {
+      "name": "network model",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT",
+      "info": "Created by the mal-toolbox model python module."
+    },
+    "assets" : 
+    {
+        "0": {
+            "name" : "Network:A",
+            "metaconcept" : "Network", 
+            "eid" : "0",
+            "defenses" : {
+                "securityAwareness" : "0.0"
+            }
+        },
+        "1" : {
+            "name" : "Nework:B",
+            "metaconcept" : "Network",
+            "eid" : "1",
+            "defenses" : {
+                "notPresent": "0.0"
+            }
+
+        },
+        "2" : {
+            "name" : "Nework:C",
+            "metaconcept" : "Network",
+            "eid" : "2",
+            "defenses" : {
+                "notPresent": "0.0"
+            }
+        },
+        "2" : {
+            "name" : "Application",
+            "metaconcept" : "Application",
+            "eid" : "2",
+            "defenses" : {
+                "notPresent": "0.0"
+            }
+        }
+
+    },
+    "associations": [
+        {
+        "metaconcept": "userDataAssociation",
+        "association": {
+            "dataAttacked": [
+            "0"
+            ],
+            "attackData": [
+            "1"
+            ]
+        }
+        }
+    ],
+    "attackers" : {
+        "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                "0":{
+                    "attack_steps":[
+                        "access"
+                                        
+                    ]
+                },
+                "1":{
+                    "attack_steps":[
+                        "access"
+                                        
+                    ]
+                },
+                "2":{
+                    "attack_steps":[
+                        "access"
+                                        
+                    ]
+                }
+            }
+        }
+    }
+}
