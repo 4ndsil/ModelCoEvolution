@@ -19,18 +19,9 @@ public class OCLModelValidator {
         OCL ocl = OCLHelperUtil.getOCLInstance();
         List<BrokenConstraint> brokenConstraints = new ArrayList<>();
         EObject root = metamodel.getContents().get(0);
-        EObject root_model = model.getContents().get(0);
-        validateObjectsAgainstConstraints(ocl, root, constraints, brokenConstraints);
-        List<EObject> assets = (List<EObject>) root.eGet(root.eClass().getEStructuralFeature("assets"));
-        Set<String> assetsSet = new HashSet<>();
-        for (EObject asset : assets){
-            assetsSet.add(asset.eGet(asset.eClass().getEStructuralFeature("name")).toString());
-        }
-        List<EObject> assets_model = (List<EObject>) root_model.eGet(root_model.eClass().getEStructuralFeature("assets"));        
-        for (EObject asset_model : assets_model){            
-            if(assetsSet.contains(asset_model.eGet(asset_model.eClass().getEStructuralFeature("name")).toString())){
-                validateAttackStepsAgainstConstraints(ocl, asset_model, constraints, brokenConstraints);
-            }            
+        List<EObject> metamodelAssets = (List<EObject>) root.eGet(root.eClass().getEStructuralFeature("assets"));        
+        for (EObject asset : metamodelAssets){                        
+            validateAttackStepsAgainstConstraints(ocl, asset, constraints, brokenConstraints);            
         }
         return brokenConstraints;
     }

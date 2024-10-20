@@ -1,36 +1,27 @@
 {
     "metadata": {
-      "name": "network model",
+      "name": "hardware model",
       "langVersion": "0.5.0",
       "langID": "org.mal-lang.coreLang",
-      "malVersion": "0.1.0-SNAPSHOT",
-      "info": "Created by the mal-toolbox model python module."
+      "malVersion": "0.1.0-SNAPSHOT"
     },
     "assets" : 
     {
         "0": {
-            "name" : "Network:A",
-            "metaconcept" : "Network", 
+            "name" : "Hardware",
+            "metaconcept" : "Hardware", 
             "eid" : "0",
             "defenses" : {
-                "securityAwareness" : "0.0"
+                "supplyChainAuditing" : "0.0",
+                "hardwareModificationsProtection" : "0.0"
             }
-        },
+        },        
         "1" : {
-            "name" : "Nework:B",
-            "metaconcept" : "Network",
+            "name" : "Data",
+            "metaconcept" : "Data",
             "eid" : "1",
             "defenses" : {
-                "notPresent": "0.0"
-            }
-
-        },
-        "2" : {
-            "name" : "Nework:C",
-            "metaconcept" : "Network",
-            "eid" : "2",
-            "defenses" : {
-                "notPresent": "0.0"
+                "dataNotPresent" : "1.0"
             }
         },
         "2" : {
@@ -38,19 +29,31 @@
             "metaconcept" : "Application",
             "eid" : "2",
             "defenses" : {
-                "notPresent": "0.0"
+                "disabled" : "1.0",
+                "fullAccess" : "0.0"
             }
-        }
 
+        }
     },
     "associations": [
         {
-        "metaconcept": "userDataAssociation",
+        "metaconcept": "SysExecution",
         "association": {
-            "dataAttacked": [
+            "hostHardware": [
             "0"
             ],
-            "attackData": [
+            "sysExecutedApps": [
+            "2"
+            ]
+        }
+        },
+        {
+        "metaconcept": "DataHosting",
+        "association": {
+            "hardware": [
+            "0"
+            ],
+            "hostedData": [
             "1"
             ]
         }
@@ -62,20 +65,16 @@
             "entry_points": {
                 "0":{
                     "attack_steps":[
-                        "access"
-                                        
+                        "attemptUseVulnerability"        
                     ]
                 },
                 "1":{
-                    "attack_steps":[
-                        "access"
-                                        
+                    "attack_steps":[     
                     ]
                 },
                 "2":{
                     "attack_steps":[
-                        "access"
-                                        
+                        
                     ]
                 }
             }

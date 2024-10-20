@@ -1,0 +1,111 @@
+{
+    "metadata": {
+      "name": "app model",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT"
+    },
+    "assets" : 
+    {
+        "0" : {
+            "name" : "Application:A",
+            "metaconcept" : "Application",
+            "eid" : "0",
+            "defenses" : {
+                "supplyChainAuditing": "1.0",
+                "disabled": "0.0"
+            }
+        },
+          "1" : {
+            "name" : "Application:B",
+            "metaconcept" : "Application",
+            "eid" : "1",
+            "defenses" : {
+                "fullAccess": "0.0",
+                "disabled": "0.0"
+            }
+        },
+        "2" : {
+            "name" : "Application:C",
+            "metaconcept" : "Application",
+            "eid" : "2",
+            "defenses" : {
+                "fullAccess": "0.0",
+                "disabled": "0.0"
+            }
+        },
+        "3" : {
+            "name" : "ConnectionRule",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "3",
+            "defenses" : {
+                "restricted" : "1.0"
+            }
+        },
+        "4" : {
+            "name" : "RoutingFirewall",
+            "metaconcept" : "RoutingFirewall",
+            "eid" : "4",
+            "defenses" : {                
+            }
+        }        
+    },
+    "associations": [        
+        {
+        "metaconcept": "ApplicationConnection",
+        "association": {
+            "applications": [
+            "1"
+            ],
+            "appConnections": [
+            "3"
+            ]
+        }
+        },
+          {
+        "metaconcept": "OutApplicationConnection",
+        "association": {
+            "outApplications": [
+            "2"
+            ],
+            "outgoingAppConnections": [
+            "3"
+            ]
+        }
+        },
+          {
+        "metaconcept": "ManagedBy",
+        "association": {
+            "managedRoutingFw": [
+            "4"
+            ],
+            "managerApp": [
+            "0"
+            ]
+        }
+        },
+          {
+        "metaconcept": "ConnectionRule",
+        "association": {
+            "routingFirewalls": [
+            "4"
+            ],
+            "connectionRules": [
+            "3"
+            ]
+        }
+        }
+    ],
+    "attackers" : {
+        "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                "4":{
+                    "attack_steps":[
+                        "denialOfService"           
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:coreLang_metamodel="http://www.example.org/coreLang_metamodel">
+  <coreLang_metamodel:Root>
+    <assets href="app_model/_copy.xmi#/1"/>
+    <assets href="app_model/_copy.xmi#/4"/>
+    <assets href="app_model/_copy.xmi#/7"/>
+    <assets href="app_model/_copy.xmi#/10"/>
+    <assets href="app_model/_copy.xmi#/12"/>
+    <associations href="app_model/_copy.xmi#/14"/>
+    <associations href="app_model/_copy.xmi#/15"/>
+    <associations href="app_model/_copy.xmi#/16"/>
+    <associations href="app_model/_copy.xmi#/17"/>
+  </coreLang_metamodel:Root>
+  <coreLang_metamodel:Asset name="Application" eid="0" associations="/16 /16">
+    <attackSteps href="app_model/_copy.xmi#/2"/>
+    <attackSteps href="app_model/_copy.xmi#/3"/>
+  </coreLang_metamodel:Asset>
+  <coreLang_metamodel:AttackStep name="supplyChainAuditing" type="defense"/>
+  <coreLang_metamodel:AttackStep name="disabled" type="defense"/>
+  <coreLang_metamodel:Asset name="Application" eid="1" associations="/14">
+    <attackSteps href="app_model/_copy.xmi#/5"/>
+    <attackSteps href="app_model/_copy.xmi#/6"/>
+  </coreLang_metamodel:Asset>
+  <coreLang_metamodel:AttackStep name="fullAccess" type="defense"/>
+  <coreLang_metamodel:AttackStep name="disabled" type="defense"/>
+  <coreLang_metamodel:Asset name="Application" eid="2" associations="/15">
+    <attackSteps href="app_model/_copy.xmi#/8"/>
+    <attackSteps href="app_model/_copy.xmi#/9"/>
+  </coreLang_metamodel:Asset>
+  <coreLang_metamodel:AttackStep name="fullAccess" type="defense"/>
+  <coreLang_metamodel:AttackStep name="disabled" type="defense"/>
+  <coreLang_metamodel:Asset name="ConnectionRule" eid="3" associations="/14 /15 /17 /14 /15 /17">
+    <attackSteps href="app_model/_copy.xmi#/11"/>
+  </coreLang_metamodel:Asset>
+  <coreLang_metamodel:AttackStep name="restricted" type="defense"/>
+  <coreLang_metamodel:Asset name="RoutingFirewall" eid="4" associations="/16 /17">
+    <attackSteps href="app_model/_copy.xmi#/13"/>
+  </coreLang_metamodel:Asset>
+  <coreLang_metamodel:AttackStep name="denialOfService"/>
+  <coreLang_metamodel:Association name="ApplicationConnection" leftConnectionName="applications" rightConnectionName="appConnections" leftType="Application" rightType="ConnectionRule" leftConnections="/4 /10" rightConnections="/10"/>
+  <coreLang_metamodel:Association name="OutApplicationConnection" leftConnectionName="outApplications" rightConnectionName="outgoingAppConnections" leftType="Application" rightType="ConnectionRule" leftConnections="/7 /10" rightConnections="/10"/>
+  <coreLang_metamodel:Association name="ManagedBy" leftConnectionName="managedRoutingFw" rightConnectionName="managerApp" leftType="RoutingFirewall" rightType="Application" leftConnections="/12 /1" rightConnections="/1"/>
+  <coreLang_metamodel:Association name="ConnectionRule" leftConnectionName="routingFirewalls" rightConnectionName="connectionRules" leftType="RoutingFirewall" rightType="ConnectionRule" leftConnections="/12 /10" rightConnections="/10"/>
+</xmi:XMI>

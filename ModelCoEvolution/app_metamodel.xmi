@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<coreLang_metamodel:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:coreLang_metamodel="http://www.example.org/coreLang_metamodel">
+  <assets name="ConnectionRule" category="Networking">
+    <attackSteps name="restricted" type="defense" meta="The restricted defense can be used to probabilistically model the likelihood of both the protocols required by the attack being enabled or the existence of the ConnectionRule altogether."/>
+    <attackSteps name="payloadInspection" type="defense" meta="If enabled, then the traffic is considered to be inspected and filtered by an IDPS that can detect and stop malicious payloads, effectively allowing only legitimate communication(i.e. network-level vulnerabilities cannot be exploited, unsafe actions that the user may taken that would benefit the attacker are also prevented)."/>
+  </assets>
+  <assets name="Application" category="ComputeResources">
+    <attackSteps name="notPresent" type="defense" meta="This defense is used to reason about the attack vectors introduced by this asset. It should be used to model the possibility that the Application does not actually exist. Typically this is useful to see what attack steps are removed if a particular non-essential component(e.g. a plugin, library, feature, or service)."/>
+    <attackSteps name="attemptReverseReach" type="or" meta="The attacker is reachable from this Application therefore start propagating reverse reach from it. Reverse reach is used to determine whether or not the attacker can be reached by the user."/>
+    <attackSteps name="fullAccess" type="or" meta="Full access on the Application means the attacker has complete control of the application and can perform any actions within its execution context."/>
+    <attackSteps name="supplyChainAuditing" type="defense" meta="Auditing inside the supply chain can detect possible supply chain attacks."/>
+  </assets>
+  <assets name="RoutingFirewall" category="Networking" superAsset="//@assets.1">
+    <attackSteps name="deny" type="or" meta="A DoS attack should cascade on the connected networks and associated connections"/>
+  </assets>
+  <associations name="AppExecution" leftType="Application" rightType="Application" leftMultiplicityMax="1" rightMultiplicityMax="2147483647"/>
+  <associations name="FirewallConnectionRule" leftType="RoutingFirewall" rightType="ConnectionRule" leftMultiplicityMax="1" rightMultiplicityMax="2147483647"/>
+  <associations name="ManagedBy" leftType="RoutingFirewall" rightType="Application" leftMultiplicityMax="2147483647" rightMultiplicityMax="1"/>
+  <associations name="ApplicationConnection" leftType="Application" rightType="ConnectionRule" leftMultiplicityMax="2147483647" rightMultiplicityMax="2147483647"/>
+  <associations name="InApplicationConnection" leftType="Application" rightType="ConnectionRule" leftMultiplicityMax="2147483647" rightMultiplicityMax="2147483647"/>
+  <associations name="OutApplicationConnection" leftType="Application" rightType="ConnectionRule" leftMultiplicityMax="2147483647" rightMultiplicityMax="2147483647"/>
+</coreLang_metamodel:Root>

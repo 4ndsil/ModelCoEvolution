@@ -1,0 +1,115 @@
+{
+    "metadata": {
+      "name": "data model",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT"
+    },
+    "assets" : 
+    {
+        "0" : {
+            "name" : "Data",
+            "metaconcept" : "Data",
+            "eid" : "0",
+            "defenses" : {
+                "dataNotPresent" : "1.0"
+            }
+        },
+        "1" : {
+            "name" : "Data",
+            "metaconcept" : "Data",
+            "eid" : "41",
+            "defenses" : {
+                "dataNotPresent" : "1.0"
+            }
+        },
+        "2" : {
+            "name" : "Data",
+            "metaconcept" : "Data",
+            "eid" : "2",
+            "defenses" : {
+                "dataNotPresent" : "1.0"
+            }
+        },
+        "3" : {
+            "name" : "Data",
+            "metaconcept" : "Data",
+            "eid" : "3",
+            "defenses" : { 
+                "dataNotPresent" : "1.0"              
+            }
+        },
+         "4" : {
+            "name" : "Credentials",
+            "metaconcept" : "Credentials",
+            "eid" : "4",
+            "defenses" : {
+                "notGuessable": "1.0",
+                "notDisclosed": "1.0"
+            }
+        },
+         "5" : {
+            "name" : "Credentials",
+            "metaconcept" : "Credentials",
+            "eid" : "5",
+            "defenses" : {
+                "notGuessable": "1.0",
+                "notDisclosed": "1.0"
+            }
+        }
+    },
+    "associations": [
+         {
+        "metaconcept": "DataContainment",
+            "association": {
+                "containingData": [
+                "0"
+                ],
+                "containedData": [
+                "1"
+                ]
+            }
+        },
+         {
+        "metaconcept": "DataContainment",
+            "association": {
+                "containingData": [
+                "0"
+                ],
+                "containedData": [
+                "2"
+                ]
+            }
+        },
+         {
+        "metaconcept": "DataContainment",
+            "association": {
+                "containingData": [
+                "0"
+                ],
+                "containedData": [
+                "3"
+                ]
+            }
+        },
+           {
+        "metaconcept": "EncryptionCredentials",
+            "association": {
+                "encryptedData": [
+                "2"
+                ],
+                "encryptCreds": [
+                "4"
+                ]
+            }
+        }
+    ],
+    "attackers" : {
+        "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                
+            }
+        }
+    }
+}

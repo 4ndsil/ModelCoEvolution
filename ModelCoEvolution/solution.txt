@@ -1,0 +1,30 @@
+Delete op: 
+Delete element:disabled
+
+Target element:Application 0
+
+Delete op: 
+Delete element:denialOfService
+
+Target element:RoutingFirewall 4
+
+Delete op: 
+Delete element:disabled
+
+Target element:Application 2
+
+Delete op: 
+Delete element:disabled
+
+Target element:Application 1
+
+Create op: 
+Create element:attemptReverseReach
+
+Target element:Application 0
+
+Create op: 
+Create element:fullAccess
+
+Target element:Application 1
+

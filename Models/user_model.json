@@ -1,0 +1,92 @@
+{
+    "metadata": {
+      "name": "user model",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT",
+      "info": "Created by the mal-toolbox model python module."
+    },
+    "assets" : 
+    {
+        "0": {
+            "name" : "User:A",
+            "metaconcept" : "User", 
+            "eid" : "0",
+            "defenses" : {
+                "phishUser" : "0.0"
+            }
+        },
+        "1" : {
+            "name" : "Identity",
+            "metaconcept" : "Identity",
+            "eid" : "1",
+            "defenses" : {
+            }
+
+        },
+        "2" : {
+            "name" : "Application",
+            "metaconcept" : "Application",
+            "eid" : "2",
+            "defenses" : {
+                "supplyChainAuditing": "0.0",
+                "disabled": "0.0"
+            }
+        },
+        "3" : {
+            "name" : "Credentials",
+            "metaconcept" : "Credentials",
+            "eid" : "3",
+            "defenses" : {
+            }
+        }
+    },
+    "associations": [
+        {
+        "metaconcept": "UserAssignedIdentities",
+        "association": {
+            "users": [
+            "0"
+            ],
+            "userIds": [
+            "1"
+            ]
+        }
+        },
+          {
+        "metaconcept": "IdentityCredentials",
+        "association": {
+            "identities": [
+            "1"
+            ],
+            "credentials": [
+            "3"
+            ]
+        }
+        }
+    ],
+    "attackers" : {
+        "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                "0":{
+                    "attack_steps":[
+                        "phishUser"         
+                    ]
+                },
+                "1":{
+                    "attack_steps":[      
+                    ]
+                },
+                "2":{
+                    "attack_steps":[
+                    ]
+                },
+                "3":{
+                    "attack_steps":[             
+                    ]
+                }
+            }
+        }
+    }
+}

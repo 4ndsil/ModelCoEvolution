@@ -1,0 +1,95 @@
+{
+    "metadata": {
+      "name": "privileges model",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT"
+    },
+    "assets" : 
+    {
+        "0": {
+            "name" : "Application",
+            "metaconcept" : "Application", 
+            "eid" : "0",
+            "defenses" : {
+                "disabled" : "0.0",
+                "supplyChainAuditing" : "0.0"
+            }
+        },        
+        "1" : {
+            "name" : "Identity",
+            "metaconcept" : "Identity",
+            "eid" : "1",
+            "defenses" : {              
+            }
+        },
+        "2" : {
+            "name" : "Identity",
+            "metaconcept" : "Identity",
+            "eid" : "2",
+            "defenses" : {              
+            }
+        },
+        "3" : {
+            "name" : "Data",
+            "metaconcept" : "Data",
+            "eid" : "3",
+            "defenses" : {
+                "dataNotPresent" : "1.0"
+            }
+        },
+        "4" : {
+            "name" : "Data",
+            "metaconcept" : "Data",
+            "eid" : "4",
+            "defenses" : {
+                "dataNotPresent" : "1.0"
+            }
+        }
+    },
+    "associations": [
+        {
+        "metaconcept": "AppContainment",
+        "association": {
+            "containingApp": [
+            "0"
+            ],
+            "containedData": [
+            "3"
+            ]
+        }
+        },
+        {
+        "metaconcept": "DataContainment",
+            "association": {
+                "containingData": [
+                "3"
+                ],
+                "containedData": [
+                "4"
+                ]
+            }
+        }
+    ],
+    "attackers" : {
+        "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                "0":{
+                    "attack_steps":[
+                        
+                    ]
+                },
+                "1":{
+                    "attack_steps":[     
+                    ]
+                },
+                "2":{
+                    "attack_steps":[
+                        
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,131 @@
+{
+    "metadata": {
+      "name": "network model",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT"      
+    },
+    "assets" : 
+    {
+        "0": {
+            "name" : "Network:A",
+            "metaconcept" : "Network", 
+            "eid" : "0",
+            "defenses" : {
+                "securityAwareness" : "0.0"
+            }
+        },
+        "1" : {
+            "name" : "Nework:B",
+            "metaconcept" : "Network",
+            "eid" : "1",
+            "defenses" : {
+                "manInTheMiddleDefense" : "0.0"
+            }
+
+        },
+        "2" : {
+            "name" : "Nework:C",
+            "metaconcept" : "Network",
+            "eid" : "2",
+            "defenses" : {
+                "manInTheMiddleDefense" : "0.0"
+            }
+        },
+        "3" : {
+            "name" : "Application",
+            "metaconcept" : "Application",
+            "eid" : "3",
+            "defenses" : {
+                "notPresent": "0.0"
+            }
+        },
+         "4" : {
+            "name" : "Conn:1",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "4",
+            "defenses" : {
+                "restricted": "1.0"
+            }
+        }
+    },
+    "associations": [
+         {
+        "metaconcept": "NetworkConnection",
+        "association": {
+            "networks": [
+            "0"
+            ],
+            "netConnections": [
+            "4"
+            ]
+        }
+        },
+        {
+        "metaconcept": "NetworkConnection",
+        "association": {
+            "networks": [
+            "1"
+            ],
+            "netConnections": [
+            "4"
+            ]
+        }
+        },
+           {
+        "metaconcept": "NetworkConnection",
+        "association": {
+            "networks": [
+            "2"
+            ],
+            "netConnections": [
+            "4"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ApplicationConnection",
+        "association": {
+            "applications": [
+            "3"
+            ],
+            "appConnections": [
+            "4"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ClientAccess",
+        "association": {
+            "clientAccessNetworks": [
+            "1"
+            ],
+            "clientApplications": [
+            "3"
+            ]
+        }
+        }
+    ],
+    "attackers" : {
+        "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                "0":{
+                    "attack_steps":[
+                        "physicalAccess"                                                                
+                    ]
+                },
+                "1":{
+                    "attack_steps":[ 
+                        "physicalAccess"                                           
+                    ]
+                },
+                "2":{
+                    "attack_steps":[
+                        "physicalAccess"                                       
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:coreLang_metamodel="http://www.example.org/coreLang_metamodel">
+  <coreLang_metamodel:Root>
+    <assets href="app_metamodel/_copy.xmi#/1"/>
+    <assets href="app_metamodel/_copy.xmi#/4"/>
+    <assets href="app_metamodel/_copy.xmi#/9"/>
+    <associations href="app_metamodel/_copy.xmi#/11"/>
+    <associations href="app_metamodel/_copy.xmi#/12"/>
+    <associations href="app_metamodel/_copy.xmi#/13"/>
+    <associations href="app_metamodel/_copy.xmi#/14"/>
+    <associations href="app_metamodel/_copy.xmi#/15"/>
+    <associations href="app_metamodel/_copy.xmi#/16"/>
+  </coreLang_metamodel:Root>
+  <coreLang_metamodel:Asset name="ConnectionRule" category="Networking">
+    <attackSteps href="app_metamodel/_copy.xmi#/2"/>
+    <attackSteps href="app_metamodel/_copy.xmi#/3"/>
+  </coreLang_metamodel:Asset>
+  <coreLang_metamodel:AttackStep name="restricted" type="defense" meta="The restricted defense can be used to probabilistically model the likelihood of both the protocols required by the attack being enabled or the existence of the ConnectionRule altogether."/>
+  <coreLang_metamodel:AttackStep name="payloadInspection" type="defense" meta="If enabled, then the traffic is considered to be inspected and filtered by an IDPS that can detect and stop malicious payloads, effectively allowing only legitimate communication(i.e. network-level vulnerabilities cannot be exploited, unsafe actions that the user may taken that would benefit the attacker are also prevented)."/>
+  <coreLang_metamodel:Asset name="Application" category="ComputeResources">
+    <attackSteps href="app_metamodel/_copy.xmi#/5"/>
+    <attackSteps href="app_metamodel/_copy.xmi#/6"/>
+    <attackSteps href="app_metamodel/_copy.xmi#/7"/>
+    <attackSteps href="app_metamodel/_copy.xmi#/8"/>
+  </coreLang_metamodel:Asset>
+  <coreLang_metamodel:AttackStep name="notPresent" type="defense" meta="This defense is used to reason about the attack vectors introduced by this asset. It should be used to model the possibility that the Application does not actually exist. Typically this is useful to see what attack steps are removed if a particular non-essential component(e.g. a plugin, library, feature, or service)."/>
+  <coreLang_metamodel:AttackStep name="attemptReverseReach" type="or" meta="The attacker is reachable from this Application therefore start propagating reverse reach from it. Reverse reach is used to determine whether or not the attacker can be reached by the user."/>
+  <coreLang_metamodel:AttackStep name="fullAccess" type="or" meta="Full access on the Application means the attacker has complete control of the application and can perform any actions within its execution context."/>
+  <coreLang_metamodel:AttackStep name="supplyChainAuditing" type="defense" meta="Auditing inside the supply chain can detect possible supply chain attacks."/>
+  <coreLang_metamodel:Asset name="RoutingFirewall" category="Networking" superAsset="/4">
+    <attackSteps href="app_metamodel/_copy.xmi#/10"/>
+  </coreLang_metamodel:Asset>
+  <coreLang_metamodel:AttackStep name="deny" type="or" meta="A DoS attack should cascade on the connected networks and associated connections"/>
+  <coreLang_metamodel:Association name="AppExecution" leftType="Application" rightType="Application" leftMultiplicityMax="1" rightMultiplicityMax="2147483647"/>
+  <coreLang_metamodel:Association name="FirewallConnectionRule" leftType="RoutingFirewall" rightType="ConnectionRule" leftMultiplicityMax="1" rightMultiplicityMax="2147483647"/>
+  <coreLang_metamodel:Association name="ManagedBy" leftType="RoutingFirewall" rightType="Application" leftMultiplicityMax="2147483647" rightMultiplicityMax="1"/>
+  <coreLang_metamodel:Association name="ApplicationConnection" leftType="Application" rightType="ConnectionRule" leftMultiplicityMax="2147483647" rightMultiplicityMax="2147483647"/>
+  <coreLang_metamodel:Association name="InApplicationConnection" leftType="Application" rightType="ConnectionRule" leftMultiplicityMax="2147483647" rightMultiplicityMax="2147483647"/>
+  <coreLang_metamodel:Association name="OutApplicationConnection" leftType="Application" rightType="ConnectionRule" leftMultiplicityMax="2147483647" rightMultiplicityMax="2147483647"/>
+</xmi:XMI>

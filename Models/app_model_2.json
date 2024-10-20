@@ -1,0 +1,137 @@
+{
+    "metadata": {
+      "name": "network model",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT"
+    },
+    "assets" : 
+    {
+       "0": {
+            "name" : "Network:A",
+            "metaconcept" : "Network", 
+            "eid" : "0",
+            "defenses" : {
+                "manInTheMiddleDefense" : "0.0"
+            }
+        },
+        "1" : {
+            "name" : "Application:C",
+            "metaconcept" : "Application",
+            "eid" : "1",
+            "defenses" : {
+                "fullAccess": "0.0",
+                "disabled": "0.0"
+            }
+        },        
+        "2" : {
+            "name" : "Application:B",
+            "metaconcept" : "Application",
+            "eid" : "2",
+            "defenses" : {
+                "fullAccess": "0.0",
+                "disabled": "0.0"
+            }
+        },
+        "3" : {
+            "name" : "ConnectionRule",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "3",
+            "defenses" : {
+            }
+        },
+         "4" : {
+            "name" : "RoutingFirewall",
+            "metaconcept" : "RoutingFirewall",
+            "eid" : "4",
+            "defenses" : {
+            }
+        }
+    },
+    "associations": [
+        {
+        "metaconcept": "InNetworkConnection",
+        "association": {
+            "inNetworks": [
+            "0"
+            ],
+            "ingoingNetConnections": [
+            "3"
+            ]
+        }
+        },
+          {
+        "metaconcept": "ClientAccess",
+        "association": {
+            "clientAccessNetworks": [
+            "0"
+            ],
+            "clientApplications": [
+            "3"
+            ]
+        }
+        },
+          {
+        "metaconcept": "ApplicationConnection",
+        "association": {
+            "applications": [
+            "1"
+            ],
+            "appConnections": [
+            "3"
+            ]
+        }
+        },
+          {
+        "metaconcept": "OutApplicationConnection",
+        "association": {
+            "outApplications": [
+            "2"
+            ],
+            "outgoingAppConnections": [
+            "3"
+            ]
+        }
+        },
+          {
+        "metaconcept": "ManagedBy",
+        "association": {
+            "managedRoutingFw": [
+            "2"
+            ],
+            "managerApp": [
+            "3"
+            ]
+        }
+        }
+    ],
+    "attackers" : {
+        "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                "0":{
+                    "attack_steps":[
+                    
+                    ]
+                },
+                "1":{
+                    "attack_steps":[      
+                    ]
+                },
+                "2":{
+                    "attack_steps":[
+                    ]
+                },
+                "3":{
+                    "attack_steps":[
+                    ]
+                },
+                "4":{
+                    "attack_steps":[   
+                        "denialOfService"          
+                    ]
+                }
+            }
+        }
+    }
+}

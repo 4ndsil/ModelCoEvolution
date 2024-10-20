@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ASCII"?>
+<coreLang_metamodel:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:coreLang_metamodel="http://www.example.org/coreLang_metamodel">
+  <assets name="Application" eid="0" associations="//@associations.2">
+    <attackSteps name="supplyChainAuditing" type="defense"/>
+    <attackSteps name="disabled" type="defense"/>
+  </assets>
+  <assets name="Application" eid="1" associations="//@associations.0">
+    <attackSteps name="fullAccess" type="defense"/>
+    <attackSteps name="disabled" type="defense"/>
+  </assets>
+  <assets name="Application" eid="2" associations="//@associations.1">
+    <attackSteps name="fullAccess" type="defense"/>
+    <attackSteps name="disabled" type="defense"/>
+  </assets>
+  <assets name="ConnectionRule" eid="3" associations="//@associations.0 //@associations.1 //@associations.3">
+    <attackSteps name="restricted" type="defense"/>
+  </assets>
+  <assets name="RoutingFirewall" eid="4" associations="//@associations.2 //@associations.3">
+    <attackSteps name="denialOfService"/>
+  </assets>
+  <associations name="ApplicationConnection" leftConnectionName="applications" rightConnectionName="appConnections" leftType="Application" rightType="ConnectionRule" leftConnections="//@assets.1" rightConnections="//@assets.3"/>
+  <associations name="OutApplicationConnection" leftConnectionName="outApplications" rightConnectionName="outgoingAppConnections" leftType="Application" rightType="ConnectionRule" leftConnections="//@assets.2" rightConnections="//@assets.3"/>
+  <associations name="ManagedBy" leftConnectionName="managedRoutingFw" rightConnectionName="managerApp" leftType="RoutingFirewall" rightType="Application" leftConnections="//@assets.4" rightConnections="//@assets.0"/>
+  <associations name="ConnectionRule" leftConnectionName="routingFirewalls" rightConnectionName="connectionRules" leftType="RoutingFirewall" rightType="ConnectionRule" leftConnections="//@assets.4" rightConnections="//@assets.3"/>
+</coreLang_metamodel:Root>

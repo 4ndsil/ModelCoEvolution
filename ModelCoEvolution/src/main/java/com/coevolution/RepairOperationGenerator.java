@@ -41,7 +41,7 @@ public class RepairOperationGenerator {
             List<RepairOperation> operations = operationsMap.get(con);
             operationsAll.addAll(operations);
         }
-        for (int i = 0; i < brokenConstraints.size(); i++){
+        for (int i = 0; i < brokenConstraints.size()*2; i++){
             int operationIndex = rand.nextInt(operationsAll.size());
             sequence.add(operationsAll.get(operationIndex));
         }

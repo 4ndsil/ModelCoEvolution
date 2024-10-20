@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ASCII"?>
+<coreLang_metamodel:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:coreLang_metamodel="http://www.example.org/coreLang_metamodel">
+  <assets name="Application" eid="0">
+    <attackSteps name="disabled" type="defense"/>
+    <attackSteps name="fullAccess" type="or"/>
+  </assets>
+  <assets name="Application" eid="1">
+    <attackSteps name="fullAccess" type="defense"/>
+    <attackSteps name="disabled" type="defense"/>
+  </assets>
+  <assets name="Application" eid="2">
+    <attackSteps name="fullAccess" type="defense"/>
+    <attackSteps name="disabled" type="defense"/>
+  </assets>
+  <assets name="ConnectionRule" eid="3">
+    <attackSteps name="restricted" type="defense"/>
+  </assets>
+  <assets name="RoutingFirewall" eid="4">
+    <attackSteps name="denialOfService"/>
+  </assets>
+  <associations name="ApplicationConnection" leftConnectionName="applications" rightConnectionName="appConnections" leftType="Application" rightType="ConnectionRule">
+    <leftConnections href="app_model.xmi#//@assets.1"/>
+    <rightConnections href="app_model.xmi#//@assets.3"/>
+  </associations>
+  <associations name="OutApplicationConnection" leftConnectionName="outApplications" rightConnectionName="outgoingAppConnections" leftType="Application" rightType="ConnectionRule">
+    <leftConnections href="app_model.xmi#//@assets.2"/>
+    <rightConnections href="app_model.xmi#//@assets.3"/>
+  </associations>
+  <associations name="ManagedBy" leftConnectionName="managedRoutingFw" rightConnectionName="managerApp" leftType="RoutingFirewall" rightType="Application">
+    <leftConnections href="app_model.xmi#//@assets.4"/>
+    <rightConnections href="app_model.xmi#//@assets.0"/>
+  </associations>
+  <associations name="ConnectionRule" leftConnectionName="routingFirewalls" rightConnectionName="connectionRules" leftType="RoutingFirewall" rightType="ConnectionRule">
+    <leftConnections href="app_model.xmi#//@assets.4"/>
+    <rightConnections href="app_model.xmi#//@assets.3"/>
+  </associations>
+</coreLang_metamodel:Root>

@@ -1,0 +1,237 @@
+{
+    "metadata": {
+      "name": "network model 2",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT"      
+    },
+    "assets" : 
+    {
+        "0": {
+            "name" : "Network:A",
+            "metaconcept" : "Network", 
+            "eid" : "0",
+            "defenses" : {
+                "manInTheMiddleDefense" : "0.0"
+            }
+        },
+        "1" : {
+            "name" : "Network:B",
+            "metaconcept" : "Network",
+            "eid" : "1",
+            "defenses" : {
+                "eavesdropDefense" : "1.0"
+            }
+        },
+        "2" : {
+            "name" : "Nework:C",
+            "metaconcept" : "Network",
+            "eid" : "2",
+            "defenses" : {
+                "manInTheMiddleDefense" : "1.0"
+            }
+        },"3" : {
+            "name" : "Nework:D",
+            "metaconcept" : "Network",
+            "eid" : "3",
+            "defenses" : {
+                "manInTheMiddleDefense" : "1.0"
+            }
+        },
+        "4" : {
+            "name" : "Application",
+            "metaconcept" : "Application",
+            "eid" : "4",
+            "defenses" : {
+                "supplyChainAuditing": "0.0",
+                "disabled": "0.0"
+            }
+        },
+        "5" : {
+            "name" : "RoutingFirewall",
+            "metaconcept" : "RoutingFirewall",
+            "eid" : "5",
+            "defenses" : {
+            }
+        },
+        "6" : {
+            "name" : "Conn:1",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "6",
+            "defenses" : {
+                "restricted": "1.0"
+            }
+        },
+        "7" : {
+            "name" : "Conn:2",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "7",
+            "defenses" : {
+                "restricted": "1.0"
+            }
+        },
+         "8" : {
+            "name" : "Conn:3",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "8",
+            "defenses" : {
+                "restricted": "1.0"
+            }
+        }
+    },
+    "associations": [    
+        {
+        "metaconcept": "NetworkConnection",
+        "association": {
+            "networks": [
+            "0"
+            ],
+            "netConnections": [
+            "6"
+            ]
+        }
+        },
+        {
+        "metaconcept": "NetworkConnection",
+        "association": {
+            "netConnections": [
+            "6"
+            ],
+            "networks": [
+            "1"
+            ]
+        }
+        },
+        {
+        "metaconcept": "OutNetworkConnection",
+        "association": {
+            "outNetworks": [
+            "0"
+            ],
+            "outgoingNetConnections": [
+            "7"
+            ]
+        }
+        },
+        {
+        "metaconcept": "OutNetworkConnection",
+        "association": {
+            "outNetworks": [
+            "2"
+            ],
+            "outgoingNetConnections": [
+            "6"
+            ]
+        }
+        },
+        {
+        "metaconcept": "InNetworkConnection",
+        "association": {
+            "inNetworks": [
+            "4"
+            ],
+            "inGoingNetConnections": [
+            "8"
+            ]
+        }
+        },
+        {
+        "metaconcept": "OutNetworkConnection",
+        "association": {
+            "outNetworks": [
+            "3"
+            ],
+            "outgoingNetConnections": [
+            "8"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ApplicationConnection",
+        "association": {
+            "applications": [
+            "3"
+            ],
+            "appConnections": [
+            "8"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ConnectionRule",
+        "association": {
+            "routingFirewalls": [
+            "5"
+            ],
+            "connectionRules": [
+            "0"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ConnectionRule",
+        "association": {
+            "routingFirewalls": [
+            "5"
+            ],
+            "connectionRules": [
+            "1"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ConnectionRule",
+        "association": {
+            "routingFirewalls": [
+            "5"
+            ],
+            "connectionRules": [
+            "2"
+            ]
+        }
+        }
+    ],
+    "attackers" : {
+        "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                "0":{
+                    "attack_steps":[
+                        "physicalAccess"         
+                    ]
+                },
+                "1":{
+                    "attack_steps":[ 
+                        "physicalAccess"                         
+                    ]
+                },
+                "2":{
+                    "attack_steps":[
+                        "physicalAccess",
+                        "networkAccessControl"  
+                    ]
+                },
+                "3":{
+                    "attack_steps":[
+                        "physicalAccess" 
+                    ]
+                },
+                "4":{
+                    "attack_steps":[
+                            
+                    ]
+                },
+                "5":{
+                    "attack_steps":[
+
+                    ]
+                },
+                "6":{
+                    "attack_steps":[
+                           
+                    ]
+                }
+            }
+        }
+    }
+}

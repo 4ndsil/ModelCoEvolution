@@ -1,0 +1,185 @@
+{
+    "metadata": {
+      "name": "network model 3",
+      "langVersion": "0.5.0",
+      "langID": "org.mal-lang.coreLang",
+      "malVersion": "0.1.0-SNAPSHOT"      
+    },
+    "assets" : 
+    {
+        "0": {
+            "name" : "Network:A",
+            "metaconcept" : "Network", 
+            "eid" : "0",
+            "defenses" : {
+                "manInTheMiddleDefense" : "0.0"
+            }
+        },
+        "1" : {
+            "name" : "Nework:B",
+            "metaconcept" : "Network",
+            "eid" : "1",
+            "defenses" : {
+                "manInTheMiddleDefense" : "1.0"
+            }
+        },
+        "2" : {
+            "name" : "Nework:C",
+            "metaconcept" : "Network",
+            "eid" : "2",
+            "defenses" : {
+                "manInTheMiddleDefense" : "1.0"
+            }
+        },
+        "3" : {
+            "name" : "Application",
+            "metaconcept" : "Application",
+            "eid" : "3",
+            "defenses" : {
+                "supplyChainAuditing": "0.0",
+                "disabled": "0.0"
+            }
+        },
+        "4" : {
+            "name" : "RoutingFirewall",
+            "metaconcept" : "RoutingFirewall",
+            "eid" : "4",
+            "defenses" : {
+            }
+        },
+        "5" : {
+            "name" : "Conn:1",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "5",
+            "defenses" : {
+                "restricted": "1.0"
+            }
+        },
+        "6" : {
+            "name" : "Conn:2",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "6",
+            "defenses" : {                
+            }
+        },
+         "7" : {
+            "name" : "Conn:3",
+            "metaconcept" : "ConnectionRule",
+            "eid" : "7",
+            "defenses" : {            
+            }
+        }
+    },
+    "associations": [    
+        {
+        "metaconcept": "NetworkConnection",
+        "association": {
+            "networks": [
+            "0"
+            ],
+            "netConnections": [
+            "5"
+            ]
+        }
+        },
+        {
+        "metaconcept": "OutNetworkConnection",
+        "association": {
+            "outNetworks": [
+            "0"
+            ],
+            "outgoingNetConnections": [
+            "6"
+            ]
+        }
+        },
+        {
+        "metaconcept": "OutNetworkConnection",
+        "association": {
+            "outNetworks": [
+            "1"
+            ],
+            "outgoingNetConnections": [
+            "5"
+            ]
+        }
+        },
+        {
+        "metaconcept": "InNetworkConnection",
+        "association": {
+            "inNetworks": [
+            "4"
+            ],
+            "inGoingNetConnections": [
+            "7"
+            ]
+        }
+        },
+        {
+        "metaconcept": "OutNetworkConnection",
+        "association": {
+            "outNetworks": [
+            "3"
+            ],
+            "outgoingNetConnections": [
+            "7"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ApplicationConnection",
+        "association": {
+            "applications": [
+            "3"
+            ],
+            "appConnections": [
+            "7"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ConnectionRule",
+        "association": {
+            "routingFirewalls": [
+            "4"
+            ],
+            "connectionRules": [
+            "0"
+            ]
+        }
+        },
+        {
+        "metaconcept": "ConnectionRule",
+        "association": {
+            "routingFirewalls": [
+            "4"
+            ],
+            "connectionRules": [
+            "1"
+            ]
+        }
+        }
+    ],
+    "attackers" : {
+      "1" : {
+            "name" : "Attacker:1",
+            "entry_points": {
+                "0":{
+                    "attack_steps":[
+                        "physicalAccess"                                                                
+                    ]
+                },
+                "1":{
+                    "attack_steps":[ 
+                        "physicalAccess"                                           
+                    ]
+                },
+                "2":{
+                    "attack_steps":[
+                        "physicalAccess"                                       
+                    ]
+                }
+            }
+        }
+    }
+}
